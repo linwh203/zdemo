@@ -7,16 +7,6 @@
         <q-toolbar-title> Machine Monitor Dashboard </q-toolbar-title>
         <q-tabs align="left">
           <q-route-tab to="/" label="Dashboard" />
-          <q-route-tab
-            v-if="store.role == 'admin'"
-            to="/audit"
-            label="Login Audit"
-          />
-          <q-route-tab
-            v-if="store.role == 'admin'"
-            to="/users"
-            label="User Management"
-          />
         </q-tabs>
         <!-- <q-btn dense flat round icon="menu" @click="toggleRightDrawer" /> -->
         <q-btn dense flat round icon="account_circle">
@@ -28,7 +18,7 @@
                 </q-avatar>
 
                 <div class="text-subtitle1 q-mt-md q-mb-xs">
-                  {{ store.username }}
+                  welcome
                 </div>
 
                 <q-btn
@@ -93,12 +83,10 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useQuasar, QSpinnerOrbit } from "quasar";
-import { useUserStore } from "src/stores/userStore";
 import { api } from "src/boot/axios";
 
 const router = useRouter();
 const $q = useQuasar();
-const store = useUserStore();
 
 const menuList = [
   {
@@ -151,26 +139,6 @@ const toggleRightDrawer = () => {
 };
 
 const logout = async () => {
-  $q.loading.show({
-    spinner: QSpinnerOrbit,
-    // delay: 2000,
-  });
-  const { data } = await api.post("/logout", {
-    id: store.id,
-    username: store.username,
-  });
-  if (data.code == 0) {
-    store.logout();
-    setTimeout(() => {
-      $q.loading.hide();
-      router.replace("/login");
-    }, 1000);
-  } else {
-    $q.notify({
-      type: "negative",
-      message: "Logout failed! Please try again!",
-      position: "center",
-    });
-  }
+
 };
 </script>

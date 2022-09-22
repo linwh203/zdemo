@@ -9,6 +9,7 @@
           <q-card-section class="row">
             <q-img
               :src="machineImage[selectedMachine.machine_type]"
+              height="200px"
               class="col"
             />
             <div class="col-7 q-px-lg">
@@ -129,7 +130,7 @@
                 <q-table
                   dense
                   flat
-                  style="height: 40vh"
+                  style="height: 37vh"
                   :rows="selectedMachineEvents"
                   :columns="columns"
                   row-key="index"
